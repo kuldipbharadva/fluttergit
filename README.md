@@ -1,4 +1,4 @@
-# flutter_learn_app
+# fluttergit
 
 A new Flutter application.
 
