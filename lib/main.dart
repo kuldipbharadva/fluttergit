@@ -12,8 +12,9 @@ import 'package:flutter_learn_app/view_pager/TabViewPagerUse.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../ad_mob/AdMobScreen.dart';
-import '../social_login/GoogleLoginDemo.dart';
+import 'ad_mob/AdMobScreen.dart';
+import 'map_module/MapScreen.dart';
+import 'social_login/GoogleLoginDemo.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -102,6 +103,12 @@ class CounterWidget extends StatelessWidget {
                       _navigateToNewScreen(context, DynamicLink());
                     },
                     child: Center(child: Text("Dynamic Link"))),
+                columnSpaceWidget(),
+                ElevatedButton(
+                    onPressed: () {
+                      _navigateToNewScreen(context, MapScreen());
+                    },
+                    child: Center(child: Text("Map"))),
                 columnSpaceWidget(),
               ],
             ),

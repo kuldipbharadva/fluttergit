@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_app/pages/main.dart';
+import 'package:flutter_learn_app/main.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdMobScreen extends StatefulWidget {

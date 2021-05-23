@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/model/playerList.dart';
-import 'package:flutter_learn_app/pages/main.dart';
+import 'package:flutter_learn_app/main.dart';
 
 class PlayerCard extends StatelessWidget {
   final PlayerList playerList;
