@@ -26,7 +26,7 @@ class MyLocalizations {
     });
 
     if (_localizedStrings.length == 0) {
-      String jsonString = await rootBundle.loadString('lib/language_strings/en.json');
+      String jsonString = await rootBundle.loadString('lib/lang/en.json');
       Map<String, dynamic> jsonMap = json.decode(jsonString);
       _localizedStrings = jsonMap.map((key, value) {
         return MapEntry(key, value.toString());
