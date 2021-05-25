@@ -2,126 +2,86 @@ import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/ad_mob/AdMobScreen.dart';
 import 'package:flutter_learn_app/dynamic_link/DynamicLink.dart';
 import 'package:flutter_learn_app/localization/MyLocalizations.dart';
+import 'package:flutter_learn_app/localization/language_constants.dart';
 import 'package:flutter_learn_app/one_signal/OneSignalCode.dart';
 import 'package:flutter_learn_app/pages/ApiCallUse.dart';
 import 'package:flutter_learn_app/pages/BottomSheetUse.dart';
+import 'package:flutter_learn_app/pages/HomeOptionScreen.dart';
 import 'package:flutter_learn_app/pages/LocalDbUse.dart';
 import 'package:flutter_learn_app/pages/PreferenceUse.dart';
 import 'package:flutter_learn_app/pages/PullToRefreshPaginationUse.dart';
 import 'package:flutter_learn_app/view_pager/TabViewPagerUse.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'ad_mob/AdMobScreen.dart';
 import 'map_module/MapScreen.dart';
 import 'social_login/GoogleLoginDemo.dart';
+import 'utilities/MySharedPreference.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-
-  runApp(new MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: CounterWidget(),
-    localizationsDelegates: [
-      const MyLocalizationsDelegate(),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-    ],
-  ));
+  runApp(MyApp());
 }
 
-class CounterWidget extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    var state = context.findAncestorStateOfType<_MyAppState>();
+    state.setLocale(newLocale);
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+
+  Locale _locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  void didChangeDependencies() async {
+    getLocale().then((locale) {
+      setState(() {
+        _locale = locale;
+      });
+    });
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Flutter App"),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: Column(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, ApiCallUse());
-                    },
-                    child: Center(child: Text("ApiCall & Validation"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, AdMobScreen());
-                    },
-                    child: Center(child: Text("Google AdMob"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, GoogleLoginDemo());
-                    },
-                    child: Center(child: Text("Google Login"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, BottomSheetUse());
-                    },
-                    child: Center(child: Text("BottomSheet"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, LocalDbUse());
-                    },
-                    child: Center(child: Text("Local Database"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, OneSignalCode());
-                    },
-                    child: Center(child: Text("One Signal"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, PreferenceUse());
-                    },
-                    child: Center(child: Text("Shared Preference"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, PullToRefreshPaginationUse());
-                    },
-                    child: Center(child: Text("PullToRefresh & Pagination"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, TabViewPagerUse());
-                    },
-                    child: Center(child: Text("Tab View Pager"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, DynamicLink());
-                    },
-                    child: Center(child: Text("Dynamic Link"))),
-                columnSpaceWidget(),
-                ElevatedButton(
-                    onPressed: () {
-                      _navigateToNewScreen(context, MapScreen());
-                    },
-                    child: Center(child: Text("Map"))),
-                columnSpaceWidget(),
-              ],
-            ),
-          ),
-        ));
-  }
+    List<Locale> _locals = [];
+    _locals.add(Locale(ENGLISH, ''));
+    _locals.add(Locale(ARABIC, ''));
 
-  void _navigateToNewScreen(BuildContext context, Widget newWidget) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => newWidget));
-  }
-
-  Widget columnSpaceWidget() {
-    return SizedBox(height: 10);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeOptionScreen(),
+      localizationsDelegates: [
+        const MyLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      supportedLocales: _locals,
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale?.languageCode == locale?.languageCode &&
+              supportedLocale?.countryCode == locale?.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales?.first;
+      },
+    );
   }
 }

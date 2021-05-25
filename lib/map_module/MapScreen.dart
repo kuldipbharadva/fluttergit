@@ -40,6 +40,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void dispose() {
     super.dispose();
+    BackgroundLocation.stopLocationService();
   }
 
   getCurrentLocation() async {

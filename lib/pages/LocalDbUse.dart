@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learn_app/custom_widgets/CardView.dart';
 import 'package:flutter_learn_app/local_db/MyDatabase.dart';
+import 'package:flutter_learn_app/localization/MyLocalizations.dart';
 import 'package:flutter_learn_app/model/playerList.dart';
 import 'package:flutter_learn_app/utilities/AppTheme.dart';
 import 'package:flutter_learn_app/utilities/CommonFunctions.dart';
 import 'package:flutter_learn_app/utilities/MySharedPreference.dart';
+
+import '../main.dart';
 
 class LocalDbUse extends StatefulWidget {
   @override
@@ -33,6 +36,7 @@ class _LocalDbUseState extends State<LocalDbUse> {
     cityFocus = new FocusNode();
     getListFromDB();
     getLastRecordFromDb();
+    changeLanguage(context, "ar");
   }
 
   @override
@@ -49,6 +53,7 @@ class _LocalDbUseState extends State<LocalDbUse> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              Text(buildTranslate(context, "dummy")),
               TextFormField(
                 inputFormatters: [LengthLimitingTextInputFormatter(40)],
                 textInputAction: TextInputAction.next,

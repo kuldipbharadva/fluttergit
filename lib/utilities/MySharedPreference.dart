@@ -28,7 +28,7 @@ class MySharedPreference {
     }
   }
 
-  static Future<dynamic> readPreferenceValue(String key, PreferenceType preferenceType) async {
+  static Future<dynamic> readPreferenceValue(String key, PreferenceType preferenceType, {Object defaultValue}) async {
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     switch(preferenceType) {
       case PreferenceType.STRING:

@@ -1,0 +1,10 @@
+{
+  "appName": "Flutter Example",
+
+  "dummy": "مرحبا رفرفة",
+
+  "uploadImage": "Upload Image",
+  "selectAnImage": "Select an image",
+  "takeAPhoto": "Take a photo",
+  "titleBottomSheet": "Bottom Sheet"
+}

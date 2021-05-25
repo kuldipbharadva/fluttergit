@@ -64,7 +64,7 @@ dependencies:
 #  cached_network_image: 2.1.0+1
 
 #  for runtime permission
-#  permission_handler: 7.1.0
+  permission_handler: ^8.0.0+1
 
 #  for spinner or use like iOS bottom selection
   dropdown_search: 0.4.3
@@ -114,7 +114,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/lang/en.json
+    - assets/lang/en.json
+    - assets/lang/ar.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

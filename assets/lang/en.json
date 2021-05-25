@@ -1,6 +1,8 @@
 {
   "appName": "Flutter Example",
 
+  "dummy": "Hello Flutter",
+
   "uploadImage": "Upload Image",
   "selectAnImage": "Select an image",
   "takeAPhoto": "Take a photo",
