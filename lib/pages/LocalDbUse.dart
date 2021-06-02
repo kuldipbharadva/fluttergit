@@ -8,15 +8,12 @@ import 'package:flutter_learn_app/utilities/AppTheme.dart';
 import 'package:flutter_learn_app/utilities/CommonFunctions.dart';
 import 'package:flutter_learn_app/utilities/MySharedPreference.dart';
 
-import '../main.dart';
-
 class LocalDbUse extends StatefulWidget {
   @override
   _LocalDbUseState createState() => _LocalDbUseState();
 }
 
 class _LocalDbUseState extends State<LocalDbUse> {
-
   TextEditingController txtNameEditController, txtCityEditController;
   FocusNode nameFocus, cityFocus;
 
@@ -36,7 +33,6 @@ class _LocalDbUseState extends State<LocalDbUse> {
     cityFocus = new FocusNode();
     getListFromDB();
     getLastRecordFromDb();
-    changeLanguage(context, "ar");
   }
 
   @override
@@ -53,6 +49,19 @@ class _LocalDbUseState extends State<LocalDbUse> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              Row(children: [
+                ElevatedButton(
+                    onPressed: () {
+                      changeLanguage(context, "en");
+                    },
+                    child: Text("English")),
+                SizedBox(width: 10),
+                ElevatedButton(
+                    onPressed: () {
+                      changeLanguage(context, "ar");
+                    },
+                    child: Text("Arabic"))
+              ]),
               Text(buildTranslate(context, "dummy")),
               TextFormField(
                 inputFormatters: [LengthLimitingTextInputFormatter(40)],
@@ -131,18 +140,23 @@ class _LocalDbUseState extends State<LocalDbUse> {
                       margin: EdgeInsets.symmetric(vertical: 6),
                       child: CardView(
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  Expanded(child: Text(dbGetList[index].playerName)),
+                                  Expanded(
+                                      child: Text(dbGetList[index].playerName)),
                                   InkWell(
                                     onTap: () {
-                                      updateRecordId = int.parse(dbGetList[index].id);
-                                      txtNameEditController.text = dbGetList[index].playerName;
-                                      txtCityEditController.text = dbGetList[index].playerTeam;
+                                      updateRecordId =
+                                          int.parse(dbGetList[index].id);
+                                      txtNameEditController.text =
+                                          dbGetList[index].playerName;
+                                      txtCityEditController.text =
+                                          dbGetList[index].playerTeam;
                                       nameFocus.requestFocus();
                                       isRecordEdit = true;
                                     },
@@ -151,7 +165,8 @@ class _LocalDbUseState extends State<LocalDbUse> {
                                   SizedBox(width: 8),
                                   InkWell(
                                     onTap: () {
-                                      deleteRecordFromDB(index, dbGetList[index].playerName);
+                                      deleteRecordFromDB(
+                                          index, dbGetList[index].playerName);
                                     },
                                     child: Icon(Icons.delete),
                                   ),
@@ -212,7 +227,8 @@ class _LocalDbUseState extends State<LocalDbUse> {
     dbGetList.clear();
     final dbList = await myDatabase.queryAllRows(MyDatabase.tableTest);
     dbList.forEach((element) async {
-      dbGetList.add(new PlayerList(element["id"], element["name"], element["city"]));
+      dbGetList
+          .add(new PlayerList(element["id"], element["name"], element["city"]));
       print("record id : " + element["id"]);
     });
     setState(() {});
@@ -246,15 +262,24 @@ class _LocalDbUseState extends State<LocalDbUse> {
 
   preferenceUse() async {
     await MySharedPreference.savePreferenceValue("in", 10, PreferenceType.INT);
-    await MySharedPreference.savePreferenceValue("dbl", 10.0, PreferenceType.DOUBLE);
-    await MySharedPreference.savePreferenceValue("str", "10", PreferenceType.STRING);
-    await MySharedPreference.savePreferenceValue("bl", true, PreferenceType.BOOL);
-    await MySharedPreference.savePreferenceValue("bol", true, PreferenceType.BOOL);
-    int i = await MySharedPreference.readPreferenceValue("in", PreferenceType.INT);
-    double d = await MySharedPreference.readPreferenceValue("dbl", PreferenceType.DOUBLE);
-    String s = await MySharedPreference.readPreferenceValue("str", PreferenceType.STRING);
-    bool b = await MySharedPreference.readPreferenceValue("bl", PreferenceType.BOOL);
-    bool bl = await MySharedPreference.readPreferenceValue("bol", PreferenceType.BOOL);
+    await MySharedPreference.savePreferenceValue(
+        "dbl", 10.0, PreferenceType.DOUBLE);
+    await MySharedPreference.savePreferenceValue(
+        "str", "10", PreferenceType.STRING);
+    await MySharedPreference.savePreferenceValue(
+        "bl", true, PreferenceType.BOOL);
+    await MySharedPreference.savePreferenceValue(
+        "bol", true, PreferenceType.BOOL);
+    int i =
+        await MySharedPreference.readPreferenceValue("in", PreferenceType.INT);
+    double d = await MySharedPreference.readPreferenceValue(
+        "dbl", PreferenceType.DOUBLE);
+    String s = await MySharedPreference.readPreferenceValue(
+        "str", PreferenceType.STRING);
+    bool b =
+        await MySharedPreference.readPreferenceValue("bl", PreferenceType.BOOL);
+    bool bl = await MySharedPreference.readPreferenceValue(
+        "bol", PreferenceType.BOOL);
     print("pref val int : $i");
     print("pref val double : $d");
     print("pref val string : $s");

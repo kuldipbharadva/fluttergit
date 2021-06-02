@@ -55,9 +55,9 @@ class _UploadProfileBottomSheetState extends State<UploadProfileBottomSheet> {
   Future pickImage(int index) async {
     var image;
     if (index == 0) {
-      image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      image = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     } else {
-      image = await ImagePicker.pickImage(source: ImageSource.camera);
+      image = await ImagePicker.platform.pickImage(source: ImageSource.camera);
     }
     setState(() {
       if (image != null) {

@@ -33,25 +33,25 @@ class ApiCall {
       Response response;
       switch (methodType) {
         case MethodType.GET:
-          response = await http.get(url,
+          response = await http.get(Uri.parse(url),
               headers: headers != null ? headers : defaultHeaders);
           break;
         case MethodType.POST:
-          response = await http.post(url,
+          response = await http.post(Uri.parse(url),
               headers: headers != null ? headers : defaultHeaders,
               body: body != null ? jsonEncode(body) : {});
           break;
         case MethodType.PUT:
-          response = await http.put(url,
+          response = await http.put(Uri.parse(url),
               headers: headers != null ? headers : defaultHeaders,
               body: body != null ? jsonEncode(body) : {});
           break;
         case MethodType.DELETE:
-          response = await http.delete(url,
+          response = await http.delete(Uri.parse(url),
               headers: headers != null ? headers : defaultHeaders);
           break;
         case MethodType.PATCH:
-          response = await http.patch(url,
+          response = await http.patch(Uri.parse(url),
               headers: headers != null ? headers : defaultHeaders,
               body: body != null ? jsonEncode(body) : {});
           break;
@@ -71,7 +71,7 @@ class ApiCall {
             "password": "admin123"
           };
           Response resToken = await http.post(
-              "http://sagarsinh-001-site1.ctempurl.com/api/Authenticate/authenticate",
+              Uri.parse("http://sagarsinh-001-site1.ctempurl.com/api/Authenticate/authenticate"),
               headers: defaultHeaders,
               body: jsonEncode(tokenParam));
           AuthenticationResponse tokenRes =

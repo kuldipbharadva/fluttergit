@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn_app/ad_mob/AdMobScreen.dart';
 import 'package:flutter_learn_app/dynamic_link/DynamicLink.dart';
+import 'package:flutter_learn_app/fcm/sign_in_with_google_firebase.dart';
+import 'package:flutter_learn_app/fcm_module/pages/auth_screen.dart';
+import 'package:flutter_learn_app/fcm_module/pages/chat_screen.dart';
 import 'package:flutter_learn_app/map_module/MapScreen.dart';
 import 'package:flutter_learn_app/one_signal/OneSignalCode.dart';
 import 'package:flutter_learn_app/pages/BottomSheetUse.dart';
@@ -21,6 +26,7 @@ class HomeOptionScreen extends StatefulWidget {
 }
 
 class _HomeOptionScreenState extends State<HomeOptionScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +67,28 @@ class _HomeOptionScreenState extends State<HomeOptionScreen> {
                       _navigateToNewScreen(context, LocalDbUse());
                     },
                     child: Center(child: Text("Local Database"))),
+                columnSpaceWidget(),
+                ElevatedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance
+                          .authStateChanges()
+                          .listen((User user) {
+                        if (user == null) {
+                          _navigateToNewScreen(context, AuthScreen());
+                          print('User is currently signed out!');
+                        } else {
+                          _navigateToNewScreen(context, ChatScreen());
+                          print('User is signed in!');
+                        }
+                      });
+                    },
+                    child: Center(child: Text("FCM Auth & Chat"))),
+                columnSpaceWidget(),
+                ElevatedButton(
+                    onPressed: () {
+                      _navigateToNewScreen(context, SignInWithGoogleFirebase());
+                    },
+                    child: Center(child: Text("FCM Mobile No & Google Auth"))),
                 columnSpaceWidget(),
                 ElevatedButton(
                     onPressed: () {

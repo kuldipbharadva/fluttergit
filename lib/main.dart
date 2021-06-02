@@ -1,28 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_app/ad_mob/AdMobScreen.dart';
-import 'package:flutter_learn_app/dynamic_link/DynamicLink.dart';
 import 'package:flutter_learn_app/localization/MyLocalizations.dart';
 import 'package:flutter_learn_app/localization/language_constants.dart';
-import 'package:flutter_learn_app/one_signal/OneSignalCode.dart';
-import 'package:flutter_learn_app/pages/ApiCallUse.dart';
-import 'package:flutter_learn_app/pages/BottomSheetUse.dart';
 import 'package:flutter_learn_app/pages/HomeOptionScreen.dart';
-import 'package:flutter_learn_app/pages/LocalDbUse.dart';
-import 'package:flutter_learn_app/pages/PreferenceUse.dart';
-import 'package:flutter_learn_app/pages/PullToRefreshPaginationUse.dart';
-import 'package:flutter_learn_app/view_pager/TabViewPagerUse.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-import 'ad_mob/AdMobScreen.dart';
-import 'map_module/MapScreen.dart';
-import 'social_login/GoogleLoginDemo.dart';
-import 'utilities/MySharedPreference.dart';
-
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
