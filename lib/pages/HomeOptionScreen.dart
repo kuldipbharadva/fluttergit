@@ -6,6 +6,8 @@ import 'package:flutter_learn_app/dynamic_link/DynamicLink.dart';
 import 'package:flutter_learn_app/fcm/sign_in_with_google_firebase.dart';
 import 'package:flutter_learn_app/fcm_module/pages/auth_screen.dart';
 import 'package:flutter_learn_app/fcm_module/pages/chat_screen.dart';
+import 'package:flutter_learn_app/get_module/screen/GetXApiCallUse.dart';
+import 'package:flutter_learn_app/get_module/screen/GetXApiDemo.dart';
 import 'package:flutter_learn_app/map_module/MapScreen.dart';
 import 'package:flutter_learn_app/one_signal/OneSignalCode.dart';
 import 'package:flutter_learn_app/pages/BottomSheetUse.dart';
@@ -126,6 +128,13 @@ class _HomeOptionScreenState extends State<HomeOptionScreen> {
                       checkLocationPermission(context);
                     },
                     child: Center(child: Text("Map"))),
+                columnSpaceWidget(),
+                ElevatedButton(
+                    onPressed: () {
+                      _navigateToNewScreen(context, GetXApiCallUse());
+                      // _navigateToNewScreen(context, GetXApiDemoUse());
+                    },
+                    child: Center(child: Text("GetX"))),
                 columnSpaceWidget(),
               ],
             ),

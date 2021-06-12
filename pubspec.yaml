@@ -103,6 +103,8 @@ dependencies:
   firebase_storage: ^8.1.0
   firebase_messaging:
 
+  get: ^4.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
